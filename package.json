@@ -5,8 +5,8 @@
   "description": "MERN authentication system",
   "main": "server.js",
   "scripts": {
-    "start": "concurrently \"nodemon src/server.js\" \"mongod --dbpath ./mongodb\"",
-    "cloudstart": "node src/server.js"
+    "start": "node server.js",
+    "dev": "concurrently \"nodemon server.js\" \"mongod --dbpath mongodb\""
   },
   "author": "Brad Traversy",
   "license": "MIT",

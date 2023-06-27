@@ -2,10 +2,10 @@ import path from 'path';
 import express from 'express';
 import dotenv from 'dotenv';
 dotenv.config();
-import connectDB from './config/db.js';
+import connectDB from './src/config/db.js';
 import cookieParser from 'cookie-parser';
-import { notFound, errorHandler } from './middleware/errorMiddleware.js';
-import Routes from './router.js';
+import { notFound, errorHandler } from './src/middleware/errorMiddleware.js';
+import Routes from './src/router.js';
 import cors from "cors";
 
 const port = process.env.PORT || 3003;
