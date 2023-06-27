@@ -21,7 +21,17 @@ app.use(cookieParser());
 
 app.use(cors());
 
-app.use('/api', Routes);
+const corsOptions = {
+  origin: [
+    "http://localhost:3000",
+    "http://127.0.0.1",
+    "http://104.142.122.231",
+  ],
+  credentials: true,
+  exposedHeaders: ["set-cookie"],
+};
+
+app.use("/api", cors(corsOptions), Routes);
 
 if (process.env.NODE_ENV === 'production') {
   const __dirname = path.resolve();
