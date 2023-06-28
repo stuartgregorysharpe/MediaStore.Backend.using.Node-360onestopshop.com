@@ -5,7 +5,7 @@
   "description": "MERN authentication system",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "nodemon server.js",
     "dev": "concurrently \"nodemon server.js\" \"mongod --dbpath mongodb\""
   },
   "author": "Brad Traversy",
@@ -19,7 +19,7 @@
     "express-async-handler": "^1.2.0",
     "jsonwebtoken": "^9.0.0",
     "mongodb": "^4.16.0",
-    "mongoose": "^7.1.0"
+    "mongoose": "^7.3.1"
   },
   "devDependencies": {
     "concurrently": "^8.0.1",
