@@ -1,6 +1,7 @@
 import asyncHandler from 'express-async-handler';
 import User from '../models/userModel.js';
 import generateToken from '../utils/generateToken.js';
+import jwt from 'jsonwebtoken';
 
 // @desc    Auth user & get token
 // @route   POST /api/users/auth
@@ -9,15 +10,16 @@ export const loginUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
   const user = await User.findOne({ email });
-
   if (user && (await user.matchPassword(password))) {
 
-    const token = generateToken(res, user._id);
+    const token = generateToken( user._id, user.name, user.email, user.phone, user.permission);
 
     const userdata = {
       _id: user._id,
       name: user.name,
       email: user.email,
+      permission: user.permission,
+      phone: user.phone
     }
 
     const data = {
@@ -39,6 +41,7 @@ export const loginUser = asyncHandler(async (req, res) => {
 // @route   POST /api/users
 // @access  Public
 export const registerUser = asyncHandler(async (req, res) => {
+  console.log(req.body.name)
   const { name, email, password, phone } = req.body;
   const userExists = await User.findOne({ email });
 
@@ -125,4 +128,38 @@ export const updateUserProfile = asyncHandler(async (req, res) => {
     res.status(404);
     throw new Error('User not found');
   }
+});
+
+
+export const refreshToken = asyncHandler(async (req, res) => {
+  console.log("1")
+  const token = req.headers.authorization;
+  jwt.verify(token, process.env.JWT_SECRET, async (err, decoded) => {
+    if (err) {
+      if (err.name === "TokenExpiredError") {
+        return res.json({ status: 'failed', message: "Expired token" });
+      }
+    } else {
+      let email = decoded.email;
+      const user = await User.find({ email: email });
+
+      if (user) {
+        const token = generateToken(user._id, user.name, user.email, user.phone, user.permission);
+        const userdata = {
+          _id: user._id,
+          name: user.name,
+          email: user.email,
+          permission: user.permission,
+          phone: user.phone
+        }
+        const data = {
+          user: userdata,
+          token: token
+        }
+        res.json({ data: data, status: 'success', message: "Authorized" });
+      } else {
+        res.json({ status: 'failed', message: 'Token Invalid. Your account was hacked. Ask for support team.' });
+      }
+    }
+  });
 });
