@@ -8,6 +8,7 @@ pnpm-debug.log*
 lerna-debug.log*
 
 mongodb
+uploads
 node_modules
 dist
 dist-ssr

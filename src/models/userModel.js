@@ -13,17 +13,32 @@ const userSchema = mongoose.Schema(
       unique: true,
     },
     phone: {
-      type: Number,
-      required: true,
-      unique: true,
+      type: String,
+      // required: true,
+      // unique: true,
     },
     password: {
       type: String,
-      required: true,
+      // required: true,
     },
     permission: {
       type: String,
       required: true,
+    },
+    country: {
+      type: String
+    },
+    timezone: {
+      type: String
+    },
+    bio: {
+      type: String
+    },
+    photourl: {
+      type: String
+    },
+    from: {
+      type: String
     }
   },
   {

@@ -7,12 +7,19 @@ import cookieParser from 'cookie-parser';
 import { notFound, errorHandler } from './src/middleware/errorMiddleware.js';
 import Routes from './src/router.js';
 import cors from "cors";
+import bodyParser from 'body-parser';
+import morgan from 'morgan';
 
-const port = process.env.PORT || 3003;
+const port = process.env.PORT || 443;
 
 connectDB();
 
 const app = express();
+
+app.use(morgan("dev"));
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -33,8 +40,10 @@ const corsOptions = {
 
 app.use("/api", cors(corsOptions), Routes);
 
+const __dirname = path.resolve();
+app.use('/asset', express.static(path.join(__dirname, '/uploads')));
+
 if (process.env.NODE_ENV === 'production') {
-  const __dirname = path.resolve();
   app.use(express.static(path.join(__dirname, '/frontend/dist')));
 
   app.get('*', (req, res) =>
@@ -42,7 +51,7 @@ if (process.env.NODE_ENV === 'production') {
   );
 } else {
   app.get('/', (req, res) => {
-    res.send('API is running....');
+    res.send('360days Backend, RestFul API is running....');
   });
 }
 

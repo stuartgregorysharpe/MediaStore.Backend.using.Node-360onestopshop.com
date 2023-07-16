@@ -2,10 +2,10 @@ import jwt from 'jsonwebtoken';
 import asyncHandler from 'express-async-handler';
 import User from '../models/userModel.js';
 
-const protect = asyncHandler(async (req, res, next) => {
+const authprotect = asyncHandler(async (req, res, next) => {
   let token;
 
-  token = req.cookies.jwt;
+  token = req.headers.authorization;
 
   if (token) {
     try {
@@ -25,4 +25,4 @@ const protect = asyncHandler(async (req, res, next) => {
   }
 });
 
-export { protect };
+export { authprotect };
