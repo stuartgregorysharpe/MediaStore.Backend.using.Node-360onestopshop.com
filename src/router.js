@@ -16,7 +16,17 @@ import {
   getMegaList, 
   deleteMegaFile,
   editMegaFile,
+  searchMegaFiles,
+  searchVolume,
+  searchRecent,
+  searchPopularity,
+  searchAlphabeta,
 } from "./controllers/cloudStorageController.js"
+
+import {
+  getHomeTitles,
+  updateHomeTitles,
+} from './controllers/homeController.js'
 
 import { authprotect } from './middleware/authMiddleware.js';
 
@@ -36,6 +46,16 @@ router.post('/add-mega-list', addMegaList);
 router.post('/get-mega-list', getMegaList);
 router.post('/delete-mega-file', deleteMegaFile);
 router.post('/edit-mega-file', editMegaFile);
+router.post('/search', searchMegaFiles);
+router.post('/search-alphabeta', searchAlphabeta);
+router.post('/search-popularity', searchPopularity);
+router.post('/search-recent', searchRecent);
+router.post('/search-volume', searchVolume);
+
+// Home routers
+router.post('/get-home-list', getHomeTitles);
+router.post('/update-home-list', updateHomeTitles);
+
 
 router
   .route('/profile')
