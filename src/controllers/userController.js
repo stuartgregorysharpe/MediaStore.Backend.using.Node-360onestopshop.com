@@ -274,7 +274,7 @@ export const saveUserProfile = async (req, res) => {
       user.photourl = photoPath;
       await user.save();
     } else {
-      throw new Error("User not found");
+      res.send({status: "failed", message: "An error was caused"})
     }
 
     const token = generateToken(user._id, user.name, user.email, user.phone, user.permission);
