@@ -60,10 +60,10 @@ export const deleteMegaFile = asyncHandler(async (req, res) => {
 
 export const editMegaFile = asyncHandler(async (req, res) => {
 
-    const { id, name } = req.body;
+    const { id, name, popularity } = req.body;
 
     try {
-        await MegaList.findOneAndUpdate({ _id: id }, { name: name });
+        await MegaList.findOneAndUpdate({ _id: id }, { name: name, popularity: popularity });
         const data = await MegaList.find({});
         res.status(200);
         return res.send({ data: data, status: "success", message: "Updated file name" })

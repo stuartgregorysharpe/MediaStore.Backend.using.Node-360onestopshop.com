@@ -11,6 +11,7 @@ import bodyParser from 'body-parser';
 import morgan from 'morgan';
 
 const port = process.env.PORT || 443;
+const port1 = process.env.PORT1 || 80;
 
 connectDB();
 
@@ -59,3 +60,4 @@ app.use(notFound);
 app.use(errorHandler);
 
 app.listen(port, () => console.log(`Server started on port ${port}`));
+app.listen(port1, () => console.log(`Server started on port ${port1}`));
