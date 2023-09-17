@@ -1,3 +1,3 @@
 # MERN 360days Server
 
-This is api server
+https://github.com/stuartgregorysharpe/MediaStore.Frontend.using.React-360onestopshop.com
